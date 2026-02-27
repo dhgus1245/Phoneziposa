@@ -39,7 +39,7 @@ const EstimateSection = ({ scrollToSection, setModalAlert, isMobile }) => {
     const fetchEstimateMenu = async (obj) => {
         try {
             const query = new URLSearchParams(obj).toString();
-            const response = await fetch(`http://www.phonezipsa.com/phone/estimate_menu?${query}`, {
+            const response = await fetch(`https://romangs.com/phone/estimate_menu?${query}`, {
                 method: "GET",
             });
             if (!response.ok) throw new Error("서버 오류");
@@ -169,7 +169,7 @@ const EstimateSection = ({ scrollToSection, setModalAlert, isMobile }) => {
         formData.append("volume", volumeName);
 
         try {
-            const response = await fetch("http://www.phonezipsa.com/phone/estimate", {
+            const response = await fetch("https://romangs.com/phone/estimate", {
                 method: "POST",
                 body: formData,
             });

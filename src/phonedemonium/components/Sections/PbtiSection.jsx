@@ -190,7 +190,7 @@ const PbtiSection = ({scrollToSection, isMobile}) => {
     const getResultPBTI = useCallback(async (resultCode) => {
         setIsLoading(true);
         try {
-            const response = await fetch(`http://www.phonezipsa.com/phone/pbti?pcode=${encodeURIComponent(resultCode)}`);
+            const response = await fetch(`https://romangs.com/phone/pbti?pcode=${encodeURIComponent(resultCode)}`);
             const result = await response.json();
             // console.log(result);
             return result;

@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# PhoneZipSa (Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+딥러닝 기반 **휴대폰 가격 분석/견적** 사이트의 프론트엔드입니다.  
+휴대폰 **앞/뒤 이미지 + 기기 정보(제조사/시리즈/모델/용량)**를 입력하면, 서버에서 이미지를 분석해 **등급을 산정**하고 **데이터 기반으로 예상 가격**을 제공합니다.  
+추가로 MBTI를 참고해 만든 **PBTI(휴대폰 취향 테스트)** 기능이 있습니다.
 
-## Available Scripts
+## 주요 기능
 
-In the project directory, you can run:
+- **견적/등급 분석**
+  - 제조사/시리즈/모델/용량 선택
+  - 앞/뒤 이미지 업로드
+  - 분석 결과: 등급 및 가격(그래프/AI 문구 포함)
+- **PBTI 테스트**
+  - 문항 응답 기반으로 타입 계산
+  - 타입 결과/추천 정보 조회
+- **반응형 UI**
+  - 모바일/PC 레이아웃 대응
 
-### `npm start`
+## 기술 스택
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React (Create React App / react-scripts)**
+- **React Router**
+- **MUI (@mui/material)**
+- **Recharts**
+- **lucide-react**
+- **CSS Modules + 일반 CSS**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 실행 방법
 
-### `npm test`
+```bash
+npm install
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 기본 접속: `http://localhost:3000`
+- 포트 변경(선택): 루트에 `.env` 파일 생성 후
 
-### `npm run build`
+```env
+PORT=3001
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 외부 API(백엔드) 의존
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+이 저장소는 **프론트엔드**이며, 실제 딥러닝 분석/가격 산정은 **외부 API**에서 수행됩니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **기기 선택 메뉴**
+  - `GET https://romangs.com/phone/estimate_menu?key=...&value=...`
+- **견적 분석 요청 (multipart/form-data)**
+  - `POST https://romangs.com/phone/estimate`
+  - 전송 데이터(예): `frontImage`, `backImage`, `model`, `volume`
+- **PBTI 결과 조회**
+  - `GET https://romangs.com/phone/pbti?pcode=...`
 
-### `npm run eject`
+## 프로젝트 구조(핵심)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `src/Router.js`: 라우팅 엔트리(현재 `/` 단일 페이지)
+- `src/phonedemonium/pages/PhoneMain.jsx`: 메인 페이지(섹션 조합)
+- `src/phonedemonium/components/Sections/`
+  - `MainSection.jsx`: 인트로/이동 CTA
+  - `EstimateSection.jsx`: 이미지 업로드 + 견적 분석
+  - `PbtiSection.jsx`: PBTI 테스트
+- `src/phonedemonium/styles/`: 스타일(CSS Modules 포함)
+- `public/`: 이미지/비디오 정적 리소스
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 빌드
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm run build
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`build/`에 프로덕션 번들이 생성됩니다.
