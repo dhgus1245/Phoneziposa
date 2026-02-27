@@ -1,0 +1,37 @@
+.page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.pagePc {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.pageMobile {
+  background: linear-gradient(
+    135deg,
+    #0a0a2e 0%,
+    #16213e 25%,
+    #1a237e 50%,
+    #3949ab 75%,
+    #5c6bc0 100%
+  );
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
+  margin-top: 40px;
+  padding-bottom: 20px;
+  background: transparent;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  font-weight: 300;
+}
+
