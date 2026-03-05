@@ -1,0 +1,7 @@
+services:
+  phoneziposa:
+    build: .
+    container_name: phoneziposa
+    ports:
+      - "3001:3001"
+    restart: unless-stopped

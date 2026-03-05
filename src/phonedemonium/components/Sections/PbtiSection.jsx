@@ -190,9 +190,9 @@ const PbtiSection = ({scrollToSection, isMobile}) => {
     const getResultPBTI = useCallback(async (resultCode) => {
         setIsLoading(true);
         try {
-            const response = await fetch(`https://romangs.com/phone/pbti?pcode=${encodeURIComponent(resultCode)}`);
+            const response = await fetch(`http://54.180.183.118:8080/phone/pbti?pcode=${encodeURIComponent(resultCode)}`);
+            if (!response.ok) throw new Error("서버 오류");
             const result = await response.json();
-            // console.log(result);
             return result;
         } catch (e) {
             console.error("PBTI 결과 가져오기 실패:", e);
@@ -231,7 +231,8 @@ const PbtiSection = ({scrollToSection, isMobile}) => {
                 const resultCode = getResultCode();
                 if (!resultCode) return;
                 const result = await getResultPBTI(resultCode);
-                setPbtiResult(result);
+                // 실패 시 null 대신 error 객체 저장 → 무한 재시도 방지
+                setPbtiResult(result ?? { error: true });
             })();
         }
     }, [currentStep, getResultCode, getResultPBTI, isLoading, pbtiInfo.length, pbtiResult]);
@@ -628,6 +629,24 @@ const PbtiSection = ({scrollToSection, isMobile}) => {
                             animation: 'spin 1s linear infinite'
                         }}></div>
                         <p style={{fontSize: isMobile ? '16px' : '18px'}}>결과를 불러오는 중입니다...</p>
+                    </div>
+                </div>
+            );
+        }
+
+        // fetch 실패 시 (무한루프 방지를 위해 error 객체 저장됨)
+        if (pbtiResult.error) {
+            return (
+                <div className={sharedStyles.contentBlock}>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '20px',
+                        color: 'white'
+                    }}>
+                        <p style={{fontSize: isMobile ? '16px' : '18px'}}>결과를 불러오는데 실패했습니다.</p>
+                        <p style={{fontSize: isMobile ? '14px' : '16px', opacity: 0.8}}>다시 시도해 주세요.</p>
                     </div>
                 </div>
             );

@@ -33,6 +33,7 @@ npm start
 ```
 
 - 기본 접속: `http://localhost:3000`
+- 현재 설정: `http://localhost:3001`
 - 포트 변경(선택): 루트에 `.env` 파일 생성 후
 
 ```env
@@ -44,12 +45,12 @@ PORT=3001
 이 저장소는 **프론트엔드**이며, 실제 딥러닝 분석/가격 산정은 **외부 API**에서 수행됩니다.
 
 - **기기 선택 메뉴**
-  - `GET https://romangs.com/phone/estimate_menu?key=...&value=...`
+  - `GET http://54.180.183.118:8080/phone/estimate_menu?key=...&value=...`
 - **견적 분석 요청 (multipart/form-data)**
-  - `POST https://romangs.com/phone/estimate`
+  - `POST http://54.180.183.118:8080/phone/estimate`
   - 전송 데이터(예): `frontImage`, `backImage`, `model`, `volume`
 - **PBTI 결과 조회**
-  - `GET https://romangs.com/phone/pbti?pcode=...`
+  - `GET http://54.180.183.118:8080/phone/pbti?pcode=...`
 
 ## 프로젝트 구조(핵심)
 
