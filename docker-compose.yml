@@ -1,7 +1,10 @@
 services:
-  phoneziposa:
+  phonezipsa:
     build: .
-    container_name: phoneziposa
+    image: phonezipsa
+    container_name: phonezipsa-app
+    env_file:
+      - .env
     ports:
       - "3001:3001"
     restart: unless-stopped
