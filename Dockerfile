@@ -9,16 +9,15 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve with nginx
-FROM nginx:alpine
+# Stage 2: Serve (Node + serve, no nginx)
+FROM node:20-alpine
 
-# nginx 기본 설정 제거 후 커스텀 설정 사용
-RUN rm -rf /usr/share/nginx/html/*
+WORKDIR /app
 
-COPY --from=builder /app/build /usr/share/nginx/html
+RUN npm install -g serve
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build ./build
 
-EXPOSE 80
+EXPOSE 3001
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "build", "-l", "3001"]

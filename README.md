@@ -70,3 +70,22 @@ npm run build
 ```
 
 `build/`에 프로덕션 번들이 생성됩니다.
+
+## Docker 배포
+
+Node + serve로 3001 포트에서 서빙합니다 (nginx 미사용).
+
+```bash
+# 이미지 빌드 및 컨테이너 실행
+docker-compose up -d --build
+```
+
+| 항목 | 값 |
+|------|-----|
+| 이미지명 | phonezipsa |
+| 컨테이너명 | phonezipsa-app |
+| 포트 | 3001 |
+
+- 접속: `http://localhost:3001`
+- 로그: `docker-compose logs -f`
+- 중지: `docker-compose down`
